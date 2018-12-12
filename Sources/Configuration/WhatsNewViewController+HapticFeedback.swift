@@ -23,25 +23,23 @@ public extension WhatsNewViewController {
         
         /// Execute HapticFeedback
         func execute() {
-            // Verify iOS 10 or greater is available
-            guard #available(iOSApplicationExtension 10.0, *) else {
-                // HapticFeedback isn't available under iOS 10
-                return
-            }
-            // Switch on self
-            switch self {
-            case .impact(let style):
-                // UIFeedbackGenerator
-                let feedbackGenerator = UIImpactFeedbackGenerator(style: style.rawStyle)
-                feedbackGenerator.impactOccurred()
-            case .selection:
-                // UISelectionFeedbackGenerator
-                let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
-                selectionFeedbackGenerator.selectionChanged()
-            case .notification(let type):
-                // UINotificationFeedbackGenerator
-                let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
-                notificationFeedbackGenerator.notificationOccurred(type.rawType)
+            // Check if iOS 10 or greater is available
+            if #available(iOS 10.0, *) {
+                // Switch on self
+                switch self {
+                case .impact(let style):
+                    // UIFeedbackGenerator
+                    let feedbackGenerator = UIImpactFeedbackGenerator(style: style.rawStyle)
+                    feedbackGenerator.impactOccurred()
+                case .selection:
+                    // UISelectionFeedbackGenerator
+                    let selectionFeedbackGenerator = UISelectionFeedbackGenerator()
+                    selectionFeedbackGenerator.selectionChanged()
+                case .notification(let type):
+                    // UINotificationFeedbackGenerator
+                    let notificationFeedbackGenerator = UINotificationFeedbackGenerator()
+                    notificationFeedbackGenerator.notificationOccurred(type.rawType)
+                }
             }
         }
         
@@ -67,10 +65,10 @@ public extension WhatsNewViewController.HapticFeedback {
 
 // MARK: - ImpactFeedbackStyle+RawStyle
 
-@available(iOSApplicationExtension 10.0, *)
 public extension WhatsNewViewController.HapticFeedback.ImpactFeedbackStyle {
     
     /// The raw style as UIImpactFeedbackGenerator.FeedbackStyle
+    @available(iOS 10.0, *)
     var rawStyle: UIImpactFeedbackGenerator.FeedbackStyle {
         switch self {
         case .light:
@@ -102,10 +100,10 @@ public extension WhatsNewViewController.HapticFeedback {
 
 // MARK: - NotificationFeedbackType+RawType
 
-@available(iOSApplicationExtension 10.0, *)
 public extension WhatsNewViewController.HapticFeedback.NotificationFeedbackType {
     
     /// The raw type as UINotificationFeedbackGenerator.FeedbackType
+    @available(iOS 10.0, *)
     var rawType: UINotificationFeedbackGenerator.FeedbackType {
         switch self {
         case .success:
