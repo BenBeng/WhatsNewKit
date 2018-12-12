@@ -177,8 +177,11 @@ public class WhatsNewViewController: UIViewController {
                 }
                 // Initialize SafariViewController
                 let safariViewController = SFSafariViewController(url: url)
-                // Set tint color
-                safariViewController.preferredControlTintColor = self.configuration.tintColor
+                // Check if iOS Version is greater or equal to iOS 10
+                if #available(iOSApplicationExtension 10.0, *) {
+                    // Set tint color
+                    safariViewController.preferredControlTintColor = self.configuration.tintColor
+                }
                 // Present ViewController
                 self.present(safariViewController, animated: true)
             case .some(.custom(action: let action)):
